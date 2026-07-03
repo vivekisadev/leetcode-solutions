@@ -8,7 +8,8 @@ public:
                 swap(nums[i], nums[nums[i] - 1]);
             }
         }
-//cheking the twitter postings
+//cheking the twitter postings again
+
 
         for (int i = 0; i < n; i++) {
             if (nums[i] != i + 1) {
