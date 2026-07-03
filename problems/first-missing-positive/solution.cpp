@@ -8,7 +8,7 @@ public:
                 swap(nums[i], nums[nums[i] - 1]);
             }
         }
-//cheking the twitter postings again
+//cheking the twitter postings again2
 
 
         for (int i = 0; i < n; i++) {
