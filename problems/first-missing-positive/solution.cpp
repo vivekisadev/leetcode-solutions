@@ -8,7 +8,7 @@ public:
                 swap(nums[i], nums[nums[i] - 1]);
             }
         }
-
+//cheking
         for (int i = 0; i < n; i++) {
             if (nums[i] != i + 1) {
                 return i + 1;
