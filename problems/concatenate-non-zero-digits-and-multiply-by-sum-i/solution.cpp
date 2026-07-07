@@ -1,6 +1,6 @@
 class Solution {
 public:
-    long long concatenateAndMultiply(int n) {
+    long long sumAndMultiply(int n) {
         string digits = to_string(n);
         string nonZero = "";
         long long sum = 0;
