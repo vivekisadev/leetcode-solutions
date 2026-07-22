@@ -1,9 +1,15 @@
 class Solution {
 public:
+
+    int gcd(int a, int b){
+        if(b==0) return a;
+
+        else return gcd(b, a%b);
+    }
     int findGCD(vector<int>& nums) {
-        sort(nums.begin(), nums.end());
-        int n = nums.size();
-        int res = gcd(nums[0], nums[n-1]);
-        return res;
+        int mini = *min_element(nums.begin(), nums.end());
+        int maxi = *max_element(nums.begin(), nums.end());
+
+        return gcd(mini,maxi);
     }
 };
