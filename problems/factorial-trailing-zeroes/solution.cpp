@@ -7,8 +7,12 @@ public:
         }
         int trailZeros = 0;
         while(fac > 0) {
-            if(fac % 10 == 0) trailZeros++;
-            fac /= 10;
+            if(fac % 10 == 0) {
+                trailZeros++;
+                fac /= 10;
+            }
+            else break;
+            
         }
 
         return trailZeros;
