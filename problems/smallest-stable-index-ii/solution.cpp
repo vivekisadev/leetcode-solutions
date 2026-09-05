@@ -9,7 +9,7 @@ public:
             suffixMin[i] = min(suffixMin[i + 1], nums[i]);
         }
 
-        int prefixMax = INT_MIN;
+        int prefixMax = -1;
         for(int i = 0; i < n; i++) {
             prefixMax = max(prefixMax, nums[i]);
             if( prefixMax - suffixMin[i] <= k) return i;
