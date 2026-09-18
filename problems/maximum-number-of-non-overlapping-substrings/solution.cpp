@@ -2,38 +2,38 @@ class Solution {
 public:
     vector<string> maxNumOfSubstrings(string s) {
         int n = s.size();
-        vector<int> last(26, -1);
-        for (int i = 0; i < n; i++) last[s[i] - 'a'] = i;
-
-        vector<pair<int,int>> intervals;
+        vector<int> first(26, -1), last(26, -1);
         for (int i = 0; i < n; i++) {
             int c = s[i] - 'a';
-            // only start an interval at the first occurrence of this char
-            bool isFirst = true;
-            for (int k = 0; k < i; k++) if (s[k] - 'a' == c) { isFirst = false; break; }
-            // (better: precompute 'first[]' array instead of this O(n) check — see note below)
-            if (!isFirst) continue;
+            if (first[c] == -1) first[c] = i;
+            last[c] = i;
+        }
 
-            int end = last[c];
-            int j = i;
-            while (j <= end) {
-                end = max(end, last[s[j] - 'a']);
-                j++;
+        vector<pair<int,int>> intervals;
+        for (int c = 0; c < 26; c++) {
+            if (first[c] == -1) continue;
+            int start = first[c];
+            int expandIt = last[c];   // grows as farther-reaching chars are found
+            bool acceptIt = true;     // flips false if something leaks before start
+            int slideIt = start;      // scans the (possibly growing) window
+            while (slideIt <= expandIt) {
+                int c2 = s[slideIt] - 'a';
+                if (first[c2] < start) { acceptIt = false; break; }
+                expandIt = max(expandIt, last[c2]);
+                slideIt++;
             }
-            intervals.push_back({i, end});
+            if (acceptIt) intervals.push_back({start, expandIt});
         }
 
         sort(intervals.begin(), intervals.end(),
-             [](const pair<int,int>& a, const pair<int,int>& b) {
-                 return a.second < b.second;
-             });
+             [](auto& a, auto& b) { return a.second < b.second; });
 
         vector<string> result;
         int prevEnd = -1;
-        for (auto& [start, end] : intervals) {
-            if (start > prevEnd) {
-                result.push_back(s.substr(start, end - start + 1));
-                prevEnd = end;
+        for (auto& [st, en] : intervals) {
+            if (st > prevEnd) {
+                result.push_back(s.substr(st, en - st + 1));
+                prevEnd = en;
             }
         }
         return result;
