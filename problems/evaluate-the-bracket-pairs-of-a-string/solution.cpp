@@ -10,11 +10,11 @@ public:
         int n = s.size();
         int i = 0;
         while (i < n) {
-            if (s[i] == "(") {
+            if (s[i] == '(') {
                 int j = i + 1;
-                while (s[j] != ")")
+                while (s[j] != ')')
                     j++;
-                string key = s.substr(i + 1, j - i + 1);
+                string key = s.substr(i + 1, j - i - 1);
                 if (mp.count(key))
                     result += mp[key];
                 else
