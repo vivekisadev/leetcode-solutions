@@ -1,14 +1,23 @@
 class Solution {
 public:
     bool checkValidString(string s) {
-        int n = s.length();
-        unordered_map<char, int> count;
-        for(char c : s){
-            count[c]++;
+        int l = 0, h = 0;
+
+        for(char c : s) {
+            if(c == '('){
+                l++;
+                h++;
+            } else if(c == ')'){
+                l--;
+                h--;
+            } else {
+                l--;
+                h++;
+            }
+
+            if(h < 0) return false;
+            if(l < 0) l = 0;
         }
-        if(count['('] == count[')']) return true;
-        else if(abs(count['('] - count[')']) == 1 && count['*'] == 1) return true;
-        else return false;
-        
+        return l == 0;
     }
 };
