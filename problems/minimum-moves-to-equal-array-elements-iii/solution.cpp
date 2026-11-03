@@ -1,13 +1,14 @@
 class Solution {
 public:
     int minMoves(vector<int>& nums) {
-        int n = nums.size();
-        sort(nums.begin(), nums.end());
-        int max = nums[n - 1];
-        int count = 0;
+        int maxi = 0;
         for(int num : nums){
-            count += (max - num);
+            maxi = max(maxi, num);
         }
-        return count;
+        int ans = 0;
+        for(int num : nums){
+            ans += (maxi - num);
+        }
+        return ans;
     }
 };
